@@ -16,6 +16,7 @@ class MontebitTheme {
         hintStyle: TextStyle(color: Colors.grey),
         prefixStyle: TextStyle(color: Colors.black),
       ),
+      drawerTheme: const DrawerThemeData(backgroundColor: Color(0xffFBFAF2)),
     );
   }
 }
