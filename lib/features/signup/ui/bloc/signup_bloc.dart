@@ -59,9 +59,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     final result = await _repository.signUp(state.signup);
 
     if (result.isSuccess) {
-      return emit(
-        state.copyWith(savingStatus: SavingStatus.success, signup: result.data),
-      );
+      return emit(state.copyWith(savingStatus: SavingStatus.success));
     }
 
     emit(state.copyWith(savingStatus: SavingStatus.failure));
