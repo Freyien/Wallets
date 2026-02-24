@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:montebit/core/domain/entities/card_entity.dart';
 import 'package:montebit/core/ui/widgets/core_widgets.dart';
+import 'package:montebit/features/cards/ui/bloc/cards_bloc.dart';
+import 'package:montebit/features/cards/ui/widgets/cards_delete_item_dialog.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({super.key, required this.card, this.showDeleteButton = true});
@@ -15,15 +18,15 @@ class CardItem extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: BoxDecoration(
-        color: card.cardTypeProcessor.backgroundColor.withAlpha(77),
+        color: card.displayProcessorType.backgroundColor.withAlpha(77),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xffC5C8B9), width: 1),
       ),
       child: Column(
         children: [
           // Delete button
-          showDeleteButton ? _DeleteButton() : SizedBox.shrink(),
-          showDeleteButton ? VerticalSpace.xxxlarge() : SizedBox.shrink(),
+          showDeleteButton ? _DeleteButton(card: card) : SizedBox.shrink(),
+          VerticalSpace.xxxlarge(),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +35,7 @@ class CardItem extends StatelessWidget {
               _CardDescription(description: card.description),
 
               // Processor logo
-              _ProcessorLogo(processorType: card.cardTypeProcessor),
+              _ProcessorLogo(processorType: card.displayProcessorType),
             ],
           ),
           VerticalSpace.small(),
@@ -49,7 +52,7 @@ class CardItem extends StatelessWidget {
               Text(card.cardHolder),
 
               // Validity
-              Text(card.validity),
+              Text(card.formattedValidity),
             ],
           ),
         ],
@@ -65,19 +68,29 @@ class _CardNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String number = card.cardNumber.replaceAll(' ', '');
+
+    String display = '';
+    for (int i = 0; i < number.length; i++) {
+      if (i > 0 && i % 4 == 0) display += ' ';
+
+      if (i < 12) {
+        display += '●';
+      } else {
+        display += number[i];
+      }
+    }
+
     return Row(
-      children: [
-        ...List.generate(3, (index) {
-          return Text('●●●● ', style: TextStyle(fontSize: 16));
-        }),
-        Text(card.last4Digits, style: TextStyle(fontSize: 16)),
-      ],
+      children: [Text('$display ', style: const TextStyle(fontSize: 16))],
     );
   }
 }
 
 class _DeleteButton extends StatelessWidget {
-  const _DeleteButton();
+  const _DeleteButton({required this.card});
+
+  final CardEntity card;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +100,19 @@ class _DeleteButton extends StatelessWidget {
         style: IconButton.styleFrom(
           side: BorderSide(color: Color(0xff75786C), width: 1),
         ),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return CardsDeleteItemDialog(
+                card: card,
+                onConfirm: () {
+                  context.read<CardsBloc>().add(DeleteCardEvent(card.id!));
+                },
+              );
+            },
+          );
+        },
         icon: SvgPicture.asset('assets/svg/delete_icon.svg'),
       ),
     );
@@ -102,7 +127,7 @@ class _CardDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      description,
+      '$description ',
       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
     );
   }
@@ -133,7 +158,7 @@ extension ProcessorTypeExtension on ProcessorType {
       case ProcessorType.visa:
         return const Color(0xff6B00D6);
       case ProcessorType.unknown:
-        return const Color(0xff00d394).withAlpha(77);
+        return const Color(0xff151515).withAlpha(77);
     }
   }
 

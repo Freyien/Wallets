@@ -15,7 +15,7 @@ class AddCardCodeInput extends StatelessWidget {
       decoration: const InputDecoration(labelText: 'CVV', hintText: '***'),
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(3),
+        LengthLimitingTextInputFormatter(4),
       ],
       onChanged: (value) =>
           context.read<AddCardBloc>().add(ChangeCodeEvent(value)),

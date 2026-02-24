@@ -14,7 +14,8 @@ class CardsFetchingBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CardsBloc, CardsState>(
-      buildWhen: (p, c) => p.fetchingStatus != c.fetchingStatus,
+      buildWhen: (p, c) =>
+          p.fetchingStatus != c.fetchingStatus || p.cards != c.cards,
       builder: (context, state) {
         // Loading
         if (state.fetchingStatus.isInitialOrLoading) {

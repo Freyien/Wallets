@@ -34,10 +34,8 @@ class CardNumberInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    // Remove all non-digit characters
     String newText = newValue.text.replaceAll(RegExp(r'\D'), '');
 
-    // Add spaces every 4 digits
     final buffer = StringBuffer();
     for (int i = 0; i < newText.length; i++) {
       if (i > 0 && i % 4 == 0) {

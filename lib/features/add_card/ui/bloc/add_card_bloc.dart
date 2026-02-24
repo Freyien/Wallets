@@ -59,8 +59,19 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     ChangeValidityEvent event,
     Emitter<AddCardState> emit,
   ) {
+    String formattedValidity = event.validity;
+
+    if (formattedValidity.length == 5 && formattedValidity.contains('/')) {
+      final parts = formattedValidity.split('/');
+      if (parts.length == 2 && parts[1].length == 2) {
+        formattedValidity = '${parts[0]}/20${parts[1]}';
+      }
+    }
+
     emit(
-      state.copyWith(addCard: state.addCard.copyWith(validity: event.validity)),
+      state.copyWith(
+        addCard: state.addCard.copyWith(validity: formattedValidity),
+      ),
     );
   }
 

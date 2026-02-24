@@ -67,6 +67,33 @@ class CardEntity extends Equatable {
       ? cardNumber.substring(cardNumber.length - 4)
       : cardNumber;
 
+  String get formattedValidity {
+    if (validity.contains('/') && validity.split('/')[1].length == 4) {
+      final parts = validity.split('/');
+      return '${parts[0]}/${parts[1].substring(2)}';
+    }
+    return validity;
+  }
+
+  ProcessorType get displayProcessorType {
+    if (cardTypeProcessor != ProcessorType.unknown) {
+      return cardTypeProcessor;
+    }
+
+    final cleanNumber = cardNumber.replaceAll(' ', '');
+    if (cleanNumber.isEmpty) return ProcessorType.unknown;
+
+    if (cleanNumber.startsWith(RegExp(r'^4'))) {
+      return ProcessorType.visa;
+    } else if (cleanNumber.startsWith(RegExp(r'^(5[1-5]|2[2-7])'))) {
+      return ProcessorType.mastercard;
+    } else if (cleanNumber.startsWith(RegExp(r'^3[47]'))) {
+      return ProcessorType.amex;
+    }
+
+    return ProcessorType.unknown;
+  }
+
   CardEntity copyWith({
     int? id,
     String? cardType,

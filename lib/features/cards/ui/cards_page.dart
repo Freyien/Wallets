@@ -7,6 +7,7 @@ import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/features/add_card/ui/add_card_page.dart';
 import 'package:montebit/features/cards/ui/bloc/cards_bloc.dart';
 import 'package:montebit/features/cards/ui/widgets/card_item.dart';
+import 'package:montebit/features/cards/ui/widgets/cards_deleting_listener.dart';
 import 'package:montebit/features/cards/ui/widgets/cards_fetching_builder.dart';
 import 'package:montebit/features/login/ui/login_page.dart';
 import 'package:montebit/features/logout/ui/bloc/logout_bloc.dart';
@@ -138,23 +139,30 @@ class CardsPage extends StatelessWidget {
         ),
         body: SafeArea(
           bottom: false,
-          child: CardsFetchingBuilder(
-            builder: (context, state) {
-              final cards = state.cards;
+          child: CardsDeletingListener(
+            child: CardsFetchingBuilder(
+              builder: (context, state) {
+                final cards = state.cards;
 
-              return ListView.separated(
-                padding: EdgeInsets.all(16),
-                itemCount: cards.length,
-                itemBuilder: (context, index) {
-                  final card = cards[index];
+                return RefreshIndicator.adaptive(
+                  onRefresh: () async {
+                    context.read<CardsBloc>().add(GetCardsEvent());
+                  },
+                  child: ListView.separated(
+                    padding: EdgeInsets.all(16),
+                    itemCount: cards.length,
+                    itemBuilder: (context, index) {
+                      final card = cards[index];
 
-                  return CardItem(card: card);
-                },
-                separatorBuilder: (context, index) {
-                  return VerticalSpace.xxlarge();
-                },
-              );
-            },
+                      return CardItem(card: card);
+                    },
+                    separatorBuilder: (context, index) {
+                      return VerticalSpace.xxlarge();
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

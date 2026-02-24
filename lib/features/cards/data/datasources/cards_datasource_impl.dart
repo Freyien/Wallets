@@ -16,4 +16,9 @@ class CardsDatasourceImpl implements CardsDatasource {
         .map((e) => CardEntity.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  @override
+  Future<void> deleteCard(int cardId) async {
+    await _client.delete('/cards/$cardId');
+  }
 }

@@ -14,6 +14,7 @@ class AddCardDescriptionInput extends StatelessWidget {
         hintText: 'Ej. Tarjeta Personal',
         helperText: 'Mínimo 5 caracteres',
       ),
+      maxLength: 20,
       onChanged: (value) =>
           context.read<AddCardBloc>().add(ChangeDescriptionEvent(value)),
       validator: (value) => AddCardValidators.validateDescription(value),

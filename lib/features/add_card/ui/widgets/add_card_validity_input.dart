@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montebit/features/add_card/ui/bloc/add_card_bloc.dart';
 import 'package:montebit/features/add_card/utils/add_card_validators.dart';
+import 'package:montebit/features/add_card/utils/date_input_formatter.dart';
 
 class AddCardValidityInput extends StatelessWidget {
   const AddCardValidityInput({super.key});
@@ -9,7 +11,12 @@ class AddCardValidityInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.datetime,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+        LengthLimitingTextInputFormatter(5),
+        DateInputFormatter(),
+      ],
       decoration: const InputDecoration(
         labelText: 'Fecha de expiración',
         hintText: 'MM/YY',

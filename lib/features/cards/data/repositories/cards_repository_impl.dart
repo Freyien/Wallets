@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' hide Response;
 import 'package:montebit/core/domain/entities/card_entity.dart';
 import 'package:montebit/core/domain/entities/response.dart';
 import 'package:montebit/core/domain/failures/failure.dart';
@@ -16,6 +17,18 @@ class CardsRepositoryImpl implements CardsRepository {
 
       return Response.success(result);
     } catch (e) {
+      return Response.failed(UnexpectedFailure());
+    }
+  }
+
+  @override
+  Future<Response<void>> deleteCard(int cardId) async {
+    try {
+      await _datasource.deleteCard(cardId);
+      return Response.voidSuccess();
+    } on DioException catch (_) {
+      return Response.failed(UnexpectedFailure());
+    } catch (_) {
       return Response.failed(UnexpectedFailure());
     }
   }
