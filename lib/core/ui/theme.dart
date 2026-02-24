@@ -18,6 +18,10 @@ class MontebitTheme {
         labelStyle: TextStyle(letterSpacing: .1),
       ),
       drawerTheme: const DrawerThemeData(backgroundColor: Color(0xffFBFAF2)),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Color(0xffE9E8E1),
+        foregroundColor: primaryColor,
+      ),
     );
   }
 }

@@ -129,7 +129,15 @@ class CardsPage extends StatelessWidget {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            context.push(AddCardPage.route);
+          },
+          label: Text('Agregar tarjeta'),
+          icon: Icon(Icons.add),
+        ),
         body: SafeArea(
+          bottom: false,
           child: CardsFetchingBuilder(
             builder: (context, state) {
               final cards = state.cards;
@@ -143,7 +151,7 @@ class CardsPage extends StatelessWidget {
                   return CardItem(card: card);
                 },
                 separatorBuilder: (context, index) {
-                  return VerticalSpace.large();
+                  return VerticalSpace.xxlarge();
                 },
               );
             },
