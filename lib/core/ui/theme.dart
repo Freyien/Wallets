@@ -13,6 +13,8 @@ class MontebitTheme {
       inputDecorationTheme: const InputDecorationTheme(
         fillColor: Color(0xffE4E3DB),
         filled: true,
+        hintStyle: TextStyle(color: Colors.grey),
+        prefixStyle: TextStyle(color: Colors.black),
       ),
     );
   }
