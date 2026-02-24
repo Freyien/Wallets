@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class CardEntity extends Equatable {
-  final int id;
+  final int? id;
   final String cardType;
   final String cardNumber;
   final String cardTypeProcessor;
@@ -9,10 +9,10 @@ class CardEntity extends Equatable {
   final String description;
   final String validity;
   final String code;
-  final int userId;
+  final int? userId;
 
   const CardEntity({
-    required this.id,
+    this.id,
     required this.cardType,
     required this.cardNumber,
     required this.cardTypeProcessor,
@@ -20,11 +20,10 @@ class CardEntity extends Equatable {
     required this.description,
     required this.validity,
     required this.code,
-    required this.userId,
+    this.userId,
   });
 
   factory CardEntity.initial() => const CardEntity(
-    id: 0,
     cardType: '',
     cardNumber: '',
     cardTypeProcessor: '',
@@ -32,24 +31,39 @@ class CardEntity extends Equatable {
     description: '',
     validity: '',
     code: '',
-    userId: 0,
   );
 
   factory CardEntity.fromJson(Map<String, dynamic> json) {
     return CardEntity(
-      id: json['id'] as int,
-      cardType: json['cardType'] as String,
-      cardNumber: json['cardNumber'] as String,
-      cardTypeProcessor: json['cardTypeProcessor'] as String,
-      cardHolder: json['cardHolder'] as String,
-      description: json['description'] as String,
-      validity: json['validity'] as String,
-      code: json['code'] as String,
-      userId: json['userId'] as int,
+      id: json['id'] as int?,
+      cardType: json['cardType'] as String? ?? '',
+      cardNumber: json['cardNumber'] as String? ?? '',
+      cardTypeProcessor: json['cardTypeProcessor'] as String? ?? '',
+      cardHolder: json['cardHolder'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      validity: json['validity'] as String? ?? '',
+      code: json['code'] as String? ?? '',
+      userId: json['userId'] as int?,
     );
   }
 
-  String get last4Digits => cardNumber.substring(cardNumber.length - 4);
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      'cardType': cardType,
+      'cardNumber': cardNumber,
+      'cardTypeProcessor': cardTypeProcessor,
+      'cardHolder': cardHolder,
+      'description': description,
+      'validity': validity,
+      'code': code,
+      if (userId != null) 'userId': userId,
+    };
+  }
+
+  String get last4Digits => cardNumber.length >= 4
+      ? cardNumber.substring(cardNumber.length - 4)
+      : cardNumber;
 
   CardEntity copyWith({
     int? id,
@@ -76,7 +90,7 @@ class CardEntity extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     id,
     cardType,
     cardNumber,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:montebit/core/ui/widgets/vertical_space.dart';
 import 'package:montebit/di/injection_modules.dart';
+import 'package:montebit/features/add_card/ui/add_card_page.dart';
 import 'package:montebit/features/cards/ui/bloc/cards_bloc.dart';
 import 'package:montebit/features/cards/ui/widgets/cards_fetching_builder.dart';
 
@@ -54,7 +56,9 @@ class CardsPage extends StatelessWidget {
                       'Agregar tarjeta',
                       style: TextStyle(letterSpacing: 0.1),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      context.push(AddCardPage.route);
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),

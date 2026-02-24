@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:montebit/core/domain/entities/card_entity.dart';
 import 'package:montebit/core/domain/enums/fetching_status.dart';
 import 'package:montebit/core/domain/enums/saving_status.dart';
-import 'package:montebit/features/cards/domain/entities/card_entity.dart';
 import 'package:montebit/features/cards/domain/repositories/cards_repository.dart';
 
 part 'cards_event.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:montebit/features/add_card/ui/add_card_page.dart';
 import 'package:montebit/features/cards/ui/cards_page.dart';
 import 'package:montebit/features/login/ui/login_page.dart';
 import 'package:montebit/features/signup/ui/signup_page.dart';
@@ -32,6 +33,12 @@ class AppRouter {
           path: CardsPage.route,
           builder: (context, state) {
             return const CardsPage();
+          },
+        ),
+        GoRoute(
+          path: AddCardPage.route,
+          builder: (context, state) {
+            return const AddCardPage();
           },
         ),
       ],

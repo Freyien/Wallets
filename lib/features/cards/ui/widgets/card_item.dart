@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:montebit/core/domain/entities/card_entity.dart';
 import 'package:montebit/core/ui/widgets/core_widgets.dart';
-import 'package:montebit/features/cards/domain/entities/card_entity.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.card});
+  const CardItem({super.key, required this.card, this.showDeleteButton = true});
 
   final CardEntity card;
+  final bool showDeleteButton;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,8 @@ class CardItem extends StatelessWidget {
       child: Column(
         children: [
           // Delete button
-          _DeleteButton(),
-          VerticalSpace.xxxlarge(),
+          showDeleteButton ? _DeleteButton() : SizedBox.shrink(),
+          showDeleteButton ? VerticalSpace.xxxlarge() : SizedBox.shrink(),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +59,7 @@ class CardItem extends StatelessWidget {
 }
 
 class _CardNumber extends StatelessWidget {
-  const _CardNumber({super.key, required this.card});
+  const _CardNumber({required this.card});
 
   final CardEntity card;
 

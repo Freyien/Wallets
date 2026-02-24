@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:montebit/core/domain/entities/card_entity.dart';
 import 'package:montebit/features/cards/domain/datasources/cards_datasource.dart';
-import 'package:montebit/features/cards/domain/entities/card_entity.dart';
 
 class CardsDatasourceImpl implements CardsDatasource {
   final Dio _client;

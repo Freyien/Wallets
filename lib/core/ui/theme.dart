@@ -15,6 +15,7 @@ class MontebitTheme {
         filled: true,
         hintStyle: TextStyle(color: Colors.grey),
         prefixStyle: TextStyle(color: Colors.black),
+        labelStyle: TextStyle(letterSpacing: .1),
       ),
       drawerTheme: const DrawerThemeData(backgroundColor: Color(0xffFBFAF2)),
     );

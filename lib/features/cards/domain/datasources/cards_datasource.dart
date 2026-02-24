@@ -1,4 +1,4 @@
-import 'package:montebit/features/cards/domain/entities/card_entity.dart';
+import 'package:montebit/core/domain/entities/card_entity.dart';
 
 abstract class CardsDatasource {
   Future<List<CardEntity>> getCards();
