@@ -15,7 +15,7 @@ class CardItem extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: BoxDecoration(
-        color: Color(0xff00d394).withAlpha(77),
+        color: card.cardTypeProcessor.backgroundColor.withAlpha(77),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xffC5C8B9), width: 1),
       ),
@@ -32,7 +32,7 @@ class CardItem extends StatelessWidget {
               _CardDescription(description: card.description),
 
               // Processor logo
-              _ProcessorLogo(cardTypeProcessor: card.cardTypeProcessor),
+              _ProcessorLogo(processorType: card.cardTypeProcessor),
             ],
           ),
           VerticalSpace.small(),
@@ -109,29 +109,44 @@ class _CardDescription extends StatelessWidget {
 }
 
 class _ProcessorLogo extends StatelessWidget {
-  const _ProcessorLogo({required this.cardTypeProcessor});
+  const _ProcessorLogo({required this.processorType});
 
-  String getProcessorLogo() {
-    switch (cardTypeProcessor.toLowerCase()) {
-      case 'amex':
-        return 'assets/svg/amex.svg';
-      case 'visa':
-        return 'assets/svg/visa.svg';
-      case 'mastercard':
-        return 'assets/svg/mastercard.svg';
-      default:
-        return '';
-    }
-  }
-
-  final String cardTypeProcessor;
+  final ProcessorType processorType;
 
   @override
   Widget build(BuildContext context) {
-    final processorLogo = getProcessorLogo();
+    final logoPath = processorType.logoPath;
 
-    return processorLogo.isNotEmpty
-        ? SvgPicture.asset(processorLogo)
-        : SizedBox.shrink();
+    return logoPath.isNotEmpty
+        ? SvgPicture.asset(logoPath)
+        : const SizedBox.shrink();
+  }
+}
+
+extension ProcessorTypeExtension on ProcessorType {
+  Color get backgroundColor {
+    switch (this) {
+      case ProcessorType.amex:
+        return const Color(0xff00D394);
+      case ProcessorType.mastercard:
+        return const Color(0xff151515);
+      case ProcessorType.visa:
+        return const Color(0xff6B00D6);
+      case ProcessorType.unknown:
+        return const Color(0xff00d394).withAlpha(77);
+    }
+  }
+
+  String get logoPath {
+    switch (this) {
+      case ProcessorType.amex:
+        return 'assets/svg/amex.svg';
+      case ProcessorType.visa:
+        return 'assets/svg/visa.svg';
+      case ProcessorType.mastercard:
+        return 'assets/svg/mastercard.svg';
+      case ProcessorType.unknown:
+        return '';
+    }
   }
 }

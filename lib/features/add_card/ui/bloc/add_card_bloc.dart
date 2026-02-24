@@ -81,7 +81,7 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     emit(
       state.copyWith(
         addCard: state.addCard.copyWith(
-          cardTypeProcessor: event.cardTypeProcessor,
+          cardTypeProcessor: ProcessorType.fromString(event.cardTypeProcessor),
         ),
       ),
     );

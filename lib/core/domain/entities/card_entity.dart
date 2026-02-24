@@ -4,7 +4,7 @@ class CardEntity extends Equatable {
   final int? id;
   final String cardType;
   final String cardNumber;
-  final String cardTypeProcessor;
+  final ProcessorType cardTypeProcessor;
   final String cardHolder;
   final String description;
   final String validity;
@@ -26,7 +26,7 @@ class CardEntity extends Equatable {
   factory CardEntity.initial() => const CardEntity(
     cardType: '',
     cardNumber: '',
-    cardTypeProcessor: '',
+    cardTypeProcessor: ProcessorType.unknown,
     cardHolder: '',
     description: '',
     validity: '',
@@ -38,7 +38,9 @@ class CardEntity extends Equatable {
       id: json['id'] as int?,
       cardType: json['cardType'] as String? ?? '',
       cardNumber: json['cardNumber'] as String? ?? '',
-      cardTypeProcessor: json['cardTypeProcessor'] as String? ?? '',
+      cardTypeProcessor: ProcessorType.fromString(
+        json['cardTypeProcessor'] as String? ?? '',
+      ),
       cardHolder: json['cardHolder'] as String? ?? '',
       description: json['description'] as String? ?? '',
       validity: json['validity'] as String? ?? '',
@@ -52,7 +54,7 @@ class CardEntity extends Equatable {
       if (id != null) 'id': id,
       'cardType': cardType,
       'cardNumber': cardNumber,
-      'cardTypeProcessor': cardTypeProcessor,
+      'cardTypeProcessor': cardTypeProcessor.name,
       'cardHolder': cardHolder,
       'description': description,
       'validity': validity,
@@ -69,7 +71,7 @@ class CardEntity extends Equatable {
     int? id,
     String? cardType,
     String? cardNumber,
-    String? cardTypeProcessor,
+    ProcessorType? cardTypeProcessor,
     String? cardHolder,
     String? description,
     String? validity,
@@ -101,4 +103,24 @@ class CardEntity extends Equatable {
     code,
     userId,
   ];
+}
+
+enum ProcessorType {
+  amex,
+  visa,
+  mastercard,
+  unknown;
+
+  static ProcessorType fromString(String type) {
+    switch (type.toLowerCase()) {
+      case 'amex':
+        return ProcessorType.amex;
+      case 'visa':
+        return ProcessorType.visa;
+      case 'mastercard':
+        return ProcessorType.mastercard;
+      default:
+        return ProcessorType.unknown;
+    }
+  }
 }
