@@ -10,8 +10,7 @@ class SignupRepositoryImpl implements SignupRepository {
   final SignupDatasource _datasource;
   final FlutterSecureStorage _secureStorage;
 
-  SignupRepositoryImpl(this._datasource, {FlutterSecureStorage? secureStorage})
-    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+  SignupRepositoryImpl(this._datasource, this._secureStorage);
 
   @override
   Future<Response<SignUpResponseEntity>> signUp(

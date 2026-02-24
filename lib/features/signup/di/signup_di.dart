@@ -1,4 +1,3 @@
-
 import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/features/signup/data/datasources/signup_datasource_impl.dart';
 import 'package:montebit/features/signup/data/repositories/signup_repository_impl.dart';
@@ -15,11 +14,10 @@ class SignupDi {
 
     // Repositories
     sl.registerLazySingleton<SignupRepository>(
-      () => SignupRepositoryImpl(sl()),
+      () => SignupRepositoryImpl(sl(), sl()),
     );
 
     // Bloc
     sl.registerFactory<SignupBloc>(() => SignupBloc(sl()));
   }
 }
-

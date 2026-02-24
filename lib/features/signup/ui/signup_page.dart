@@ -8,6 +8,7 @@ import 'package:montebit/features/signup/ui/widgets/signup_button.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_confirm_password_input.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_email_input.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_fullname_input.dart';
+import 'package:montebit/features/signup/ui/widgets/signup_listener.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_password_input.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_password_requirements.dart';
 import 'package:montebit/features/signup/ui/widgets/signup_phone_input.dart';
@@ -23,47 +24,49 @@ class SignupPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => sl<SignupBloc>(),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Registro')),
-        body: HideKeyboard(
-          child: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    // Title
-                    const Text('Completa el formulario para registrarte.'),
-                    VerticalSpace.large(),
+      child: SignupListener(
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Registro')),
+          body: HideKeyboard(
+            child: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      // Title
+                      const Text('Completa el formulario para registrarte.'),
+                      VerticalSpace.large(),
 
-                    // Nickname
-                    const SignupFullNameInput(),
-                    VerticalSpace.large(),
+                      // Nickname
+                      const SignupFullNameInput(),
+                      VerticalSpace.large(),
 
-                    // Email
-                    const SignupEmailInput(),
-                    VerticalSpace.large(),
+                      // Email
+                      const SignupEmailInput(),
+                      VerticalSpace.large(),
 
-                    // Phone
-                    const SignupPhoneInput(),
-                    VerticalSpace.large(),
+                      // Phone
+                      const SignupPhoneInput(),
+                      VerticalSpace.large(),
 
-                    // Password
-                    const SignupPasswordInput(),
-                    VerticalSpace.medium(),
+                      // Password
+                      const SignupPasswordInput(),
+                      VerticalSpace.medium(),
 
-                    // Password Requirements
-                    const SignupPasswordRequirements(),
-                    VerticalSpace.large(),
+                      // Password Requirements
+                      const SignupPasswordRequirements(),
+                      VerticalSpace.large(),
 
-                    // Confirm Password
-                    const SignupConfirmPasswordInput(),
-                    VerticalSpace.xxlarge(),
+                      // Confirm Password
+                      const SignupConfirmPasswordInput(),
+                      VerticalSpace.xxlarge(),
 
-                    // Button
-                    SignupButton(formKey: formKey),
-                  ],
+                      // Button
+                      SignupButton(formKey: formKey),
+                    ],
+                  ),
                 ),
               ),
             ),

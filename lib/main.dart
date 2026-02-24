@@ -4,6 +4,8 @@ import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/router/router.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await initDependencies();
 
   runApp(const MyApp());
