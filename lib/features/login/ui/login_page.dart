@@ -1,53 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:montebit/core/ui/widgets/primary_button.dart';
-import 'package:montebit/core/ui/widgets/vertical_space.dart';
+import 'package:montebit/core/ui/widgets/core_widgets.dart';
 import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/features/login/ui/bloc/login_bloc.dart';
-import 'package:montebit/features/login/ui/widgets/login_confirm_password_input.dart';
+import 'package:montebit/features/login/ui/widgets/login_button.dart';
+import 'package:montebit/features/login/ui/widgets/login_create_account_button.dart';
 import 'package:montebit/features/login/ui/widgets/login_email_input.dart';
-import 'package:montebit/features/login/ui/widgets/login_nickname_input.dart';
+import 'package:montebit/features/login/ui/widgets/login_forgot_password_button.dart';
+import 'package:montebit/features/login/ui/widgets/login_listener.dart';
 import 'package:montebit/features/login/ui/widgets/login_password_input.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  static String route = '/signup';
+  static String route = '/login';
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<LoginBloc>()..add(GetLoginEvent()),
+      create: (context) => sl<LoginBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Registro')),
+        appBar: AppBar(title: const Text('Login')),
         body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                // Title
-                const Text('Completa el formulario para registrarte.'),
-                VerticalSpace.large(),
+          child: LoginListener(
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  // Title
+                  const Text('Completa el formulario para iniciar sesión.'),
+                  VerticalSpace.large(),
 
-                // Nickname
-                const LoginNicknameInput(),
-                VerticalSpace.medium(),
+                  // Email
+                  const LoginEmailInput(),
+                  VerticalSpace.xlarge(),
 
-                // Email
-                const LoginEmailInput(),
-                VerticalSpace.medium(),
+                  // Password
+                  const LoginPasswordInput(),
 
-                // Password
-                const LoginPasswordInput(),
-                VerticalSpace.medium(),
+                  // Forgot password
+                  const LoginForgotPasswordButton(),
+                  VerticalSpace.large(),
 
-                // Confirm Password
-                const LoginConfirmPasswordInput(),
-                VerticalSpace.xxlarge(),
+                  // Login button
+                  LoginButton(formKey: _formKey),
+                  VerticalSpace.medium(),
 
-                // Button
-                PrimaryButton(text: 'Registrar', onPressed: () {}),
-              ],
+                  // Create account button
+                  const LoginCreateAccountButton(),
+                ],
+              ),
             ),
           ),
         ),

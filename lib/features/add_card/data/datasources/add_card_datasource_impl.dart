@@ -13,7 +13,7 @@ class AddCardDatasourceImpl implements AddCardDatasource {
   Future<CardEntity> saveCard() async {
     final data = json.encode({});
 
-    final response = await _client.post('', data: data);
+    await _client.post('', data: data);
 
     return CardEntity.initial();
   }

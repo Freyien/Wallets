@@ -1,9 +1,7 @@
-
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:montebit/features/login/domain/datasources/login_datasource.dart';
 import 'package:montebit/features/login/domain/entities/login_entity.dart';
-import 'package:dio/dio.dart';
+import 'package:montebit/features/login/domain/entities/login_response_entity.dart';
 
 class LoginDatasourceImpl implements LoginDatasource {
   final Dio _client;
@@ -11,14 +9,12 @@ class LoginDatasourceImpl implements LoginDatasource {
   LoginDatasourceImpl(this._client);
 
   @override
-  Future<LoginEntity> getLogin() async {
-    final data = json.encode({});
-
+  Future<LoginResponseEntity> login(LoginEntity loginEntity) async {
     final response = await _client.post(
-      '',
-      data: data,
+      '/auth/login',
+      data: loginEntity.toJson(),
     );
 
-    return LoginEntity.initial();
+    return LoginResponseEntity.fromJson(response.data);
   }
 }

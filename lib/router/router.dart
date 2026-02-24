@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:montebit/features/add_card/ui/add_card_page.dart';
 import 'package:montebit/features/cards/ui/cards_page.dart';
+import 'package:montebit/features/forgot_password/ui/forgot_password_page.dart';
 import 'package:montebit/features/login/ui/login_page.dart';
 import 'package:montebit/features/signup/ui/signup_page.dart';
 import 'package:montebit/features/splash/models/initial_route_model.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class AppRouter {
   AppRouter(this.initialRoute);
+
   final InitialRouteModel initialRoute;
 
-  final navigatorKey = GlobalKey<NavigatorState>();
+  late final GoRouter _router = _buildRouter();
 
-  GoRouter get router {
+  GoRouter get router => _router;
+
+  GoRouter _buildRouter() {
     return GoRouter(
       initialLocation: initialRoute.route,
       navigatorKey: navigatorKey,
@@ -39,6 +45,12 @@ class AppRouter {
           path: AddCardPage.route,
           builder: (context, state) {
             return const AddCardPage();
+          },
+        ),
+        GoRoute(
+          path: ForgotPasswordPage.route,
+          builder: (context, state) {
+            return const ForgotPasswordPage();
           },
         ),
       ],

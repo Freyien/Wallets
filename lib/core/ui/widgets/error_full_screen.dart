@@ -8,12 +8,14 @@ class ErrorFullScreen extends StatelessWidget {
     this.title,
     this.message,
     this.textButton,
+    this.icon,
   });
 
   final void Function() onAction;
   final String? title;
   final String? message;
   final String? textButton;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ErrorFullScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.credit_card, size: 150),
+            Icon(icon ?? Icons.credit_card, size: 150),
             VerticalSpace.large(),
             Column(
               children: [

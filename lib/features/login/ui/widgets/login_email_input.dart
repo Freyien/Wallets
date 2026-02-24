@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montebit/features/login/ui/bloc/login_bloc.dart';
 import 'package:montebit/features/login/utils/login_validators.dart';
 
 class LoginEmailInput extends StatelessWidget {
@@ -11,9 +13,10 @@ class LoginEmailInput extends StatelessWidget {
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         labelText: 'Email',
-        border: OutlineInputBorder(),
         hintText: 'ejemplo@correo.com',
       ),
+      onChanged: (value) =>
+          context.read<LoginBloc>().add(ChangeEmailEvent(value)),
       validator: LoginValidators.validateEmail,
     );
   }

@@ -112,7 +112,7 @@ class _ProcessorLogo extends StatelessWidget {
   const _ProcessorLogo({required this.cardTypeProcessor});
 
   String getProcessorLogo() {
-    switch (cardTypeProcessor) {
+    switch (cardTypeProcessor.toLowerCase()) {
       case 'amex':
         return 'assets/svg/amex.svg';
       case 'visa':

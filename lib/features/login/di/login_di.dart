@@ -1,4 +1,3 @@
-
 import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/features/login/data/datasources/login_datasource_impl.dart';
 import 'package:montebit/features/login/data/repositories/login_repository_impl.dart';
@@ -9,17 +8,14 @@ import 'package:montebit/features/login/ui/bloc/login_bloc.dart';
 class LoginDi {
   static void initDependencies() {
     // Datasource
-    sl.registerLazySingleton<LoginDatasource>(
-      () => LoginDatasourceImpl(sl()),
-    );
+    sl.registerLazySingleton<LoginDatasource>(() => LoginDatasourceImpl(sl()));
 
     // Repositories
     sl.registerLazySingleton<LoginRepository>(
-      () => LoginRepositoryImpl(sl()),
+      () => LoginRepositoryImpl(sl(), sl()),
     );
 
     // Bloc
     sl.registerFactory<LoginBloc>(() => LoginBloc(sl()));
   }
 }
-
