@@ -15,6 +15,8 @@ class LoginDatasourceImpl implements LoginDatasource {
       data: loginEntity.toJson(),
     );
 
-    return LoginResponseEntity.fromJson(response.data);
+    return LoginResponseEntity.fromJson(
+      Map<String, dynamic>.from(response.data['data']),
+    );
   }
 }

@@ -14,6 +14,7 @@ class SignupDatasourceImpl implements SignupDatasource {
 
     final response = await _client.post('/auth/register', data: data);
 
-    return SignUpResponseEntity.fromJson(response.data);
+    final responseData = Map<String, dynamic>.from(response.data['data']);
+    return SignUpResponseEntity.fromJson(responseData);
   }
 }

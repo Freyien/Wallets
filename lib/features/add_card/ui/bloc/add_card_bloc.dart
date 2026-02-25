@@ -37,11 +37,17 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     ChangeCardNumberEvent event,
     Emitter<AddCardState> emit,
   ) {
-    emit(
-      state.copyWith(
-        addCard: state.addCard.copyWith(cardNumber: event.cardNumber),
-      ),
+    var updatedCard = state.addCard.copyWith(
+      cardNumber: event.cardNumber.replaceAll(' ', ''),
     );
+
+    if (updatedCard.isPointsCard) {
+      updatedCard = updatedCard.copyWith(cardType: CardType.points);
+    } else if (updatedCard.cardType == CardType.points) {
+      updatedCard = updatedCard.copyWith(cardType: CardType.credit);
+    }
+
+    emit(state.copyWith(addCard: updatedCard));
   }
 
   void _onHolderChanged(
@@ -102,19 +108,14 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     SaveCardEvent event,
     Emitter<AddCardState> emit,
   ) async {
-    emit(state.copyWith(fetchingStatus: FetchingStatus.loading));
+    emit(state.copyWith(savingStatus: SavingStatus.loading));
 
-    final result = await _repository.saveCard();
+    final result = await _repository.saveCard(state.addCard);
 
     if (result.isSuccess) {
-      return emit(
-        state.copyWith(
-          fetchingStatus: FetchingStatus.success,
-          addCard: result.data,
-        ),
-      );
+      return emit(state.copyWith(savingStatus: SavingStatus.success));
     }
 
-    emit(state.copyWith(fetchingStatus: FetchingStatus.failure));
+    emit(state.copyWith(savingStatus: SavingStatus.failure));
   }
 }

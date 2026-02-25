@@ -8,7 +8,8 @@ import 'package:montebit/router/router.dart';
 class DioDi {
   static void initDependencies() {
     final dio = Dio();
-    dio.options.baseUrl = 'https://api-cards-g971.onrender.com';
+    // dio.options.baseUrl = 'https://api-cards-g971.onrender.com';
+    dio.options.baseUrl = 'http://localhost:3000';
     dio.options.headers['Content-Type'] = 'application/json';
 
     dio.interceptors.add(

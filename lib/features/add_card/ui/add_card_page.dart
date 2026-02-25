@@ -11,6 +11,7 @@ import 'package:montebit/features/add_card/ui/widgets/add_card_number_input.dart
 import 'package:montebit/features/add_card/ui/widgets/add_card_preview.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_submit_button.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_validity_input.dart';
+import 'package:montebit/features/add_card/ui/widgets/card_type_selector.dart';
 
 class AddCardPage extends StatelessWidget {
   const AddCardPage({super.key});
@@ -42,6 +43,10 @@ class AddCardPage extends StatelessWidget {
 
                   // Number
                   AddCardNumberInput(),
+                  VerticalSpace.large(),
+
+                  // Card Type
+                  const CardTypeSelector(),
                   VerticalSpace.large(),
 
                   // Holder

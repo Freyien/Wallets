@@ -11,7 +11,7 @@ class CardsDatasourceImpl implements CardsDatasource {
   Future<List<CardEntity>> getCards() async {
     final response = await _client.get('/cards');
 
-    final data = response.data as List;
+    final data = response.data['data'] as List;
     return data
         .map((e) => CardEntity.fromJson(e as Map<String, dynamic>))
         .toList();

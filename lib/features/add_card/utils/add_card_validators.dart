@@ -1,5 +1,3 @@
-import 'package:montebit/core/domain/entities/card_entity.dart';
-
 class AddCardValidators {
   static String? validateDescription(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -24,11 +22,6 @@ class AddCardValidators {
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(cleanValue)) {
       return 'El número debe contener solo dígitos';
-    }
-
-    final dummyCard = CardEntity.initial().copyWith(cardNumber: cleanValue);
-    if (dummyCard.displayProcessorType == ProcessorType.unknown) {
-      return 'Solo tarjetas Visa, Mastercard o Amex';
     }
 
     return null;

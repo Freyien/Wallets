@@ -49,7 +49,7 @@ class ChangeCodeEvent extends AddCardEvent {
 
 class ChangeCardTypeEvent extends AddCardEvent {
   const ChangeCardTypeEvent(this.cardType);
-  final String cardType;
+  final CardType cardType;
 
   @override
   List<Object> get props => [cardType];

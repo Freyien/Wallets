@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class CardEntity extends Equatable {
   final int? id;
-  final String cardType;
+  final CardType cardType;
   final String cardNumber;
   final ProcessorType cardTypeProcessor;
   final String cardHolder;
@@ -24,7 +24,7 @@ class CardEntity extends Equatable {
   });
 
   factory CardEntity.initial() => const CardEntity(
-    cardType: '',
+    cardType: CardType.credit,
     cardNumber: '',
     cardTypeProcessor: ProcessorType.unknown,
     cardHolder: '',
@@ -36,7 +36,7 @@ class CardEntity extends Equatable {
   factory CardEntity.fromJson(Map<String, dynamic> json) {
     return CardEntity(
       id: json['id'] as int?,
-      cardType: json['cardType'] as String? ?? '',
+      cardType: CardType.fromString(json['cardType'] as String? ?? ''),
       cardNumber: json['cardNumber'] as String? ?? '',
       cardTypeProcessor: ProcessorType.fromString(
         json['cardTypeProcessor'] as String? ?? '',
@@ -52,7 +52,7 @@ class CardEntity extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'cardType': cardType,
+      'cardType': cardType.name,
       'cardNumber': cardNumber,
       'cardTypeProcessor': cardTypeProcessor.name,
       'cardHolder': cardHolder,
@@ -75,6 +75,8 @@ class CardEntity extends Equatable {
     return validity;
   }
 
+  bool get isPointsCard => displayProcessorType == ProcessorType.unknown;
+
   ProcessorType get displayProcessorType {
     if (cardTypeProcessor != ProcessorType.unknown) {
       return cardTypeProcessor;
@@ -96,7 +98,7 @@ class CardEntity extends Equatable {
 
   CardEntity copyWith({
     int? id,
-    String? cardType,
+    CardType? cardType,
     String? cardNumber,
     ProcessorType? cardTypeProcessor,
     String? cardHolder,
@@ -148,6 +150,26 @@ enum ProcessorType {
         return ProcessorType.mastercard;
       default:
         return ProcessorType.unknown;
+    }
+  }
+}
+
+enum CardType {
+  credit,
+  debit,
+  points,
+  unknown;
+
+  static CardType fromString(String type) {
+    switch (type.toLowerCase()) {
+      case 'credit':
+        return CardType.credit;
+      case 'debit':
+        return CardType.debit;
+      case 'points':
+        return CardType.points;
+      default:
+        return CardType.credit;
     }
   }
 }

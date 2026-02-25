@@ -10,9 +10,9 @@ class AddCardRepositoryImpl implements AddCardRepository {
   AddCardRepositoryImpl(this._datasource);
 
   @override
-  Future<Response<CardEntity>> saveCard() async {
+  Future<Response<CardEntity>> saveCard(CardEntity card) async {
     try {
-      final result = await _datasource.saveCard();
+      final result = await _datasource.saveCard(card);
 
       return Response.success(result);
     } catch (e) {

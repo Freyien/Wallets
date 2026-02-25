@@ -22,6 +22,17 @@ class MontebitTheme {
         backgroundColor: Color(0xffE9E8E1),
         foregroundColor: primaryColor,
       ),
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: SegmentedButton.styleFrom(
+          selectedForegroundColor: Colors.black,
+          selectedBackgroundColor: Color(0xffDCE7C7),
+          foregroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Color(0xff8F9285)),
+          ),
+        ),
+      ),
     );
   }
 }
