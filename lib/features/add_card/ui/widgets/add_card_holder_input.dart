@@ -14,7 +14,7 @@ class AddCardHolderInput extends StatelessWidget {
         labelText: 'Nombre del titular',
         hintText: 'Ej. Juan Pérez',
       ),
-      inputFormatters: [LengthLimitingTextInputFormatter(20)],
+      inputFormatters: [LengthLimitingTextInputFormatter(40)],
       textCapitalization: TextCapitalization.words,
       textInputAction: TextInputAction.next,
       onChanged: (value) =>

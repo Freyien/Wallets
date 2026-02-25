@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +51,10 @@ class _CardsPageState extends State<CardsPage> {
           child: CardsFetchingBuilder(
             builder: (context, state) {
               // Cards list
-              return CardsList(cards: state.cards);
+              return FadeInUp(
+                from: 20,
+                child: CardsList(cards: state.cards),
+              );
             },
           ),
         ),

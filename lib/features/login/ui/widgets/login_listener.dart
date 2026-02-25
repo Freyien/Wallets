@@ -23,6 +23,9 @@ class LoginListener extends StatelessWidget {
         if (state.fetchingStatus == FetchingStatus.failure) {
           final message = switch (state.failure) {
             InvalidCredentialsFailure() => 'Credenciales incorrectas',
+            UserLockedFailure() => 'Usuario bloqueado por seguridad',
+            MaxAttemptsExceededFailure() =>
+              'Máximo de intentos alcanzado, intente más tarde',
             _ => 'Error al iniciar sesión',
           };
 

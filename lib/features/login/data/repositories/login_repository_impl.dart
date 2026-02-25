@@ -24,6 +24,10 @@ class LoginRepositoryImpl implements LoginRepository {
       return Response.success(result);
     } on InvalidCredentialsException catch (_) {
       return Response.failed(InvalidCredentialsFailure());
+    } on UserLockedException catch (_) {
+      return Response.failed(UserLockedFailure());
+    } on MaxAttemptsExceededException catch (_) {
+      return Response.failed(MaxAttemptsExceededFailure());
     } catch (_) {
       return Response.failed(UnexpectedFailure());
     }

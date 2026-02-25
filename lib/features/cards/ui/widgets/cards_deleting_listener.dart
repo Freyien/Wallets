@@ -11,17 +11,9 @@ class CardsDeletingListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CardsBloc, CardsState>(
-      listenWhen: (previous, current) =>
-          previous.deletingStatus != current.deletingStatus,
+      listenWhen: (p, c) => p.deletingStatus != c.deletingStatus,
       listener: (context, state) {
-        if (state.deletingStatus == DeletingStatus.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Tarjeta eliminada'),
-              backgroundColor: Colors.green,
-            ),
-          );
-        } else if (state.deletingStatus == DeletingStatus.failure) {
+        if (state.deletingStatus == DeletingStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Ocurrió un error al eliminar tu tarjeta'),

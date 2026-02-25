@@ -6,6 +6,21 @@ class SignupValidators {
     if (value.trim().length < 3) {
       return 'Debe tener al menos 3 caracteres';
     }
+
+    final words = value.trim().split(RegExp(r'\s+'));
+    if (words.length < 2) {
+      return 'Debe ingresar al menos nombre y apellido';
+    }
+
+    for (var word in words) {
+      if (word.isNotEmpty) {
+        final firstChar = word.substring(0, 1);
+        if (firstChar.toUpperCase() != firstChar) {
+          return 'Cada palabra debe iniciar con mayúscula';
+        }
+      }
+    }
+
     return null;
   }
 

@@ -46,6 +46,11 @@ class AddCardValidators {
     if (value.trim().length > 20) {
       return 'El nombre debe tener menos de 20 caracteres';
     }
+    final words = value.trim().split(RegExp(r'\s+'));
+    if (words.length < 2) {
+      return 'Debe ingresar al menos nombre y apellido';
+    }
+
     return null;
   }
 

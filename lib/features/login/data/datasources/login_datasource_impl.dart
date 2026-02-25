@@ -25,6 +25,14 @@ class LoginDatasourceImpl implements LoginDatasource {
         throw InvalidCredentialsException();
       }
 
+      if (e.response?.statusCode == 403) {
+        throw UserLockedException();
+      }
+
+      if (e.response?.statusCode == 429) {
+        throw MaxAttemptsExceededException();
+      }
+
       rethrow;
     } catch (e) {
       rethrow;

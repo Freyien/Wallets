@@ -13,6 +13,7 @@ class SignupFullNameInput extends StatelessWidget {
       textInputAction: TextInputAction.next,
       onChanged: (value) =>
           context.read<SignupBloc>().add(ChangeNickNameEvent(value)),
+      textCapitalization: TextCapitalization.words,
       decoration: const InputDecoration(
         labelText: 'Nombre completo',
         hintText: 'Ej. Juan Perez',
