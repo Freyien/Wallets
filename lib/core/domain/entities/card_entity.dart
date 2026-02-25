@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class CardEntity extends Equatable {
   final String? id;
-  final CardType card;
+  final CardType type;
   final String number;
   final ProcessorType processor;
   final String holder;
@@ -12,7 +12,7 @@ class CardEntity extends Equatable {
 
   const CardEntity({
     this.id,
-    required this.card,
+    required this.type,
     required this.number,
     required this.processor,
     required this.holder,
@@ -22,7 +22,7 @@ class CardEntity extends Equatable {
   });
 
   factory CardEntity.initial() => const CardEntity(
-    card: CardType.credit,
+    type: CardType.credit,
     number: '',
     processor: ProcessorType.unknown,
     holder: '',
@@ -37,7 +37,7 @@ class CardEntity extends Equatable {
 
     return CardEntity(
       id: json['id'] as String,
-      card: CardType.fromString(json['type'] as String? ?? ''),
+      type: CardType.fromString(json['type'] as String? ?? ''),
       number: cardNumber,
       processor: ProcessorType.fromString(json['processor'] as String? ?? ''),
       holder: json['card_holder'] as String? ?? '',
@@ -50,7 +50,7 @@ class CardEntity extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'cardType': card.name,
+      'cardType': type.name.toUpperCase(),
       'cardNumber': number,
       'cardTypeProcessor': calculateProcessor.name.toUpperCase(),
       'cardHolder': holder,
@@ -102,7 +102,7 @@ class CardEntity extends Equatable {
   }) {
     return CardEntity(
       id: id ?? this.id,
-      card: type ?? card,
+      type: type ?? this.type,
       number: number ?? this.number,
       processor: processor ?? this.processor,
       holder: holder ?? this.holder,
@@ -115,7 +115,7 @@ class CardEntity extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    card,
+    type,
     number,
     processor,
     holder,
@@ -129,7 +129,8 @@ enum ProcessorType {
   amex,
   visa,
   mastercard,
-  unknown;
+  unknown
+  ;
 
   static ProcessorType fromString(String type) {
     switch (type.toLowerCase()) {
@@ -149,7 +150,8 @@ enum CardType {
   credit,
   debit,
   points,
-  unknown;
+  unknown
+  ;
 
   static CardType fromString(String type) {
     switch (type.toLowerCase()) {

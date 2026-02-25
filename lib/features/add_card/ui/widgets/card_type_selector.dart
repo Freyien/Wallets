@@ -10,7 +10,7 @@ class CardTypeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddCardBloc, AddCardState>(
-      buildWhen: (p, c) => p.addCard.card != c.addCard.card,
+      buildWhen: (p, c) => p.addCard.type != c.addCard.type,
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,7 +24,7 @@ class CardTypeSelector extends StatelessWidget {
                 ButtonSegment(value: CardType.debit, label: Text('Débito')),
                 ButtonSegment(value: CardType.points, label: Text('Puntos')),
               ],
-              selected: {state.addCard.card},
+              selected: {state.addCard.type},
               onSelectionChanged: (Set<CardType> newSelection) {
                 context.read<AddCardBloc>().add(
                   ChangeCardTypeEvent(newSelection.first),

@@ -10,6 +10,7 @@ import 'package:montebit/features/add_card/ui/widgets/add_card_description_input
 import 'package:montebit/features/add_card/ui/widgets/add_card_holder_input.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_number_input.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_preview.dart';
+import 'package:montebit/features/add_card/ui/widgets/add_card_saving_listener.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_submit_button.dart';
 import 'package:montebit/features/add_card/ui/widgets/add_card_validity_input.dart';
 import 'package:montebit/features/add_card/ui/widgets/card_type_selector.dart';
@@ -25,61 +26,63 @@ class AddCardPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => sl<AddCardBloc>(),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Agregar Tarjeta')),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: formKey,
-              child: FadeInUp(
-                from: 10,
-                delay: Duration(milliseconds: 300),
-                child: Column(
-                  children: [
-                    // Preview
-                    AddCardPreview(),
-                    VerticalSpace.xxxlarge(),
+      child: AddCardSavingListener(
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Agregar Tarjeta')),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: formKey,
+                child: FadeInUp(
+                  from: 10,
+                  delay: Duration(milliseconds: 300),
+                  child: Column(
+                    children: [
+                      // Preview
+                      AddCardPreview(),
+                      VerticalSpace.xxxlarge(),
 
-                    // Description
-                    AddCardDescriptionInput(),
-                    VerticalSpace.large(),
+                      // Description
+                      AddCardDescriptionInput(),
+                      VerticalSpace.large(),
 
-                    // Number
-                    AddCardNumberInput(),
-                    VerticalSpace.large(),
+                      // Number
+                      AddCardNumberInput(),
+                      VerticalSpace.large(),
 
-                    // Card Type
-                    const CardTypeSelector(),
-                    VerticalSpace.large(),
+                      // Card Type
+                      const CardTypeSelector(),
+                      VerticalSpace.large(),
 
-                    // Holder
-                    AddCardHolderInput(),
-                    VerticalSpace.large(),
+                      // Holder
+                      AddCardHolderInput(),
+                      VerticalSpace.large(),
 
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(flex: 4, child: AddCardValidityInput()),
-                        SizedBox(width: 16),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(flex: 4, child: AddCardValidityInput()),
+                          SizedBox(width: 16),
 
-                        Expanded(flex: 2, child: AddCardCodeInput()),
-                      ],
-                    ),
+                          Expanded(flex: 2, child: AddCardCodeInput()),
+                        ],
+                      ),
 
-                    VerticalSpace.xxxlarge(),
+                      VerticalSpace.xxxlarge(),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Cancel button
-                        AddCardCancelButton(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Cancel button
+                          AddCardCancelButton(),
 
-                        // Submit button
-                        AddCardSubmitButton(formKey: formKey),
-                      ],
-                    ),
-                  ],
+                          // Submit button
+                          AddCardSubmitButton(formKey: formKey),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

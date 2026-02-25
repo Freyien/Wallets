@@ -23,9 +23,17 @@ class CardItem extends StatelessWidget {
         border: Border.all(color: Color(0xffC5C8B9), width: 1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Delete button
-          showDeleteButton ? _DeleteButton(card: card) : SizedBox.shrink(),
+          Stack(
+            children: [
+              // Type
+              _Type(card: card),
+
+              // Delete button
+              _DeleteButton(card: card, show: showDeleteButton),
+            ],
+          ),
           VerticalSpace.xxxlarge(),
 
           Row(
@@ -61,6 +69,38 @@ class CardItem extends StatelessWidget {
   }
 }
 
+class _Type extends StatelessWidget {
+  const _Type({
+    required this.card,
+  });
+
+  final CardEntity card;
+
+  String get type {
+    switch (card.type) {
+      case CardType.credit:
+        return 'CRÉDITO';
+      case CardType.debit:
+        return 'DÉBITO';
+      case CardType.points:
+        return 'PUNTOS';
+      case CardType.unknown:
+        return '';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      type,
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
 class _CardNumber extends StatelessWidget {
   const _CardNumber({required this.card});
 
@@ -88,12 +128,15 @@ class _CardNumber extends StatelessWidget {
 }
 
 class _DeleteButton extends StatelessWidget {
-  const _DeleteButton({required this.card});
+  const _DeleteButton({required this.card, required this.show});
 
   final CardEntity card;
+  final bool show;
 
   @override
   Widget build(BuildContext context) {
+    if (!show) return SizedBox.shrink();
+
     return Align(
       alignment: Alignment.topRight,
       child: IconButton(
