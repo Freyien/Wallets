@@ -37,17 +37,9 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     ChangeCardNumberEvent event,
     Emitter<AddCardState> emit,
   ) {
-    var updatedCard = state.addCard.copyWith(
-      cardNumber: event.cardNumber.replaceAll(' ', ''),
+    emit(
+      state.copyWith(addCard: state.addCard.copyWith(number: event.cardNumber)),
     );
-
-    if (updatedCard.isPointsCard) {
-      updatedCard = updatedCard.copyWith(cardType: CardType.points);
-    } else if (updatedCard.cardType == CardType.points) {
-      updatedCard = updatedCard.copyWith(cardType: CardType.credit);
-    }
-
-    emit(state.copyWith(addCard: updatedCard));
   }
 
   void _onHolderChanged(
@@ -55,9 +47,7 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     Emitter<AddCardState> emit,
   ) {
     emit(
-      state.copyWith(
-        addCard: state.addCard.copyWith(cardHolder: event.cardHolder),
-      ),
+      state.copyWith(addCard: state.addCard.copyWith(holder: event.cardHolder)),
     );
   }
 
@@ -86,9 +76,7 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
   }
 
   void _onTypeChanged(ChangeCardTypeEvent event, Emitter<AddCardState> emit) {
-    emit(
-      state.copyWith(addCard: state.addCard.copyWith(cardType: event.cardType)),
-    );
+    emit(state.copyWith(addCard: state.addCard.copyWith(type: event.cardType)));
   }
 
   void _onTypeProcessorChanged(
@@ -98,7 +86,7 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     emit(
       state.copyWith(
         addCard: state.addCard.copyWith(
-          cardTypeProcessor: ProcessorType.fromString(event.cardTypeProcessor),
+          processor: ProcessorType.fromString(event.cardTypeProcessor),
         ),
       ),
     );

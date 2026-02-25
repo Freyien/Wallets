@@ -21,9 +21,15 @@ class AddCardNumberInput extends StatelessWidget {
         LengthLimitingTextInputFormatter(16),
         CardNumberInputFormatter(),
       ],
-      onChanged: (value) =>
-          context.read<AddCardBloc>().add(ChangeCardNumberEvent(value)),
-      validator: (value) => AddCardValidators.validateCardNumber(value),
+      onChanged: (value) {
+        final cleanValue = value.replaceAll(' ', '');
+        context.read<AddCardBloc>().add(ChangeCardNumberEvent(cleanValue));
+      },
+      validator: (value) {
+        final bloc = context.read<AddCardBloc>();
+        final processorType = bloc.state.addCard.calculateProcessor;
+        return AddCardValidators.validateCardNumber(value, processorType);
+      },
     );
   }
 }

@@ -22,7 +22,7 @@ class CardsRepositoryImpl implements CardsRepository {
   }
 
   @override
-  Future<Response<void>> deleteCard(int cardId) async {
+  Future<Response<void>> deleteCard(String cardId) async {
     try {
       await _datasource.deleteCard(cardId);
       return Response.voidSuccess();

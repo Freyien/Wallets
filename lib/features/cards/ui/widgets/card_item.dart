@@ -18,7 +18,7 @@ class CardItem extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: BoxDecoration(
-        color: card.displayProcessorType.backgroundColor.withAlpha(77),
+        color: card.calculateProcessor.backgroundColor.withAlpha(77),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xffC5C8B9), width: 1),
       ),
@@ -35,7 +35,7 @@ class CardItem extends StatelessWidget {
               _CardDescription(description: card.description),
 
               // Processor logo
-              _ProcessorLogo(processorType: card.displayProcessorType),
+              _ProcessorLogo(processorType: card.calculateProcessor),
             ],
           ),
           VerticalSpace.small(),
@@ -49,7 +49,7 @@ class CardItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Card holder
-              Text(card.cardHolder),
+              Text(card.holder),
 
               // Validity
               Text(card.formattedValidity),
@@ -68,7 +68,7 @@ class _CardNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String number = card.cardNumber.replaceAll(' ', '');
+    String number = card.number.replaceAll(' ', '');
 
     String display = '';
     for (int i = 0; i < number.length; i++) {

@@ -10,17 +10,8 @@ class CardTypeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddCardBloc, AddCardState>(
-      buildWhen: (p, c) =>
-          p.addCard.cardType != c.addCard.cardType ||
-          p.addCard.cardNumber != c.addCard.cardNumber,
+      buildWhen: (p, c) => p.addCard.card != c.addCard.card,
       builder: (context, state) {
-        final card = state.addCard;
-        final processor = card.displayProcessorType;
-
-        final showCreditOption = processor != ProcessorType.unknown;
-        final showDebitOption = processor != ProcessorType.unknown;
-        final showPointsOption = processor == ProcessorType.unknown;
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -29,14 +20,11 @@ class CardTypeSelector extends StatelessWidget {
 
             SegmentedButton<CardType>(
               segments: [
-                if (showCreditOption)
-                  ButtonSegment(value: CardType.credit, label: Text('Crédito')),
-                if (showDebitOption)
-                  ButtonSegment(value: CardType.debit, label: Text('Débito')),
-                if (showPointsOption)
-                  ButtonSegment(value: CardType.points, label: Text('Puntos')),
+                ButtonSegment(value: CardType.credit, label: Text('Crédito')),
+                ButtonSegment(value: CardType.debit, label: Text('Débito')),
+                ButtonSegment(value: CardType.points, label: Text('Puntos')),
               ],
-              selected: {state.addCard.cardType},
+              selected: {state.addCard.card},
               onSelectionChanged: (Set<CardType> newSelection) {
                 context.read<AddCardBloc>().add(
                   ChangeCardTypeEvent(newSelection.first),

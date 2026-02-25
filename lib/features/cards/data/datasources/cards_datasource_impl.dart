@@ -18,7 +18,7 @@ class CardsDatasourceImpl implements CardsDatasource {
   }
 
   @override
-  Future<void> deleteCard(int cardId) async {
+  Future<void> deleteCard(String cardId) async {
     await _client.delete('/cards/$cardId');
   }
 }

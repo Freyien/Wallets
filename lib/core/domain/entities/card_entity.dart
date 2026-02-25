@@ -1,71 +1,67 @@
 import 'package:equatable/equatable.dart';
 
 class CardEntity extends Equatable {
-  final int? id;
-  final CardType cardType;
-  final String cardNumber;
-  final ProcessorType cardTypeProcessor;
-  final String cardHolder;
+  final String? id;
+  final CardType card;
+  final String number;
+  final ProcessorType processor;
+  final String holder;
   final String description;
   final String validity;
   final String code;
-  final int? userId;
 
   const CardEntity({
     this.id,
-    required this.cardType,
-    required this.cardNumber,
-    required this.cardTypeProcessor,
-    required this.cardHolder,
+    required this.card,
+    required this.number,
+    required this.processor,
+    required this.holder,
     required this.description,
     required this.validity,
     required this.code,
-    this.userId,
   });
 
   factory CardEntity.initial() => const CardEntity(
-    cardType: CardType.credit,
-    cardNumber: '',
-    cardTypeProcessor: ProcessorType.unknown,
-    cardHolder: '',
+    card: CardType.credit,
+    number: '',
+    processor: ProcessorType.unknown,
+    holder: '',
     description: '',
     validity: '',
     code: '',
   );
 
   factory CardEntity.fromJson(Map<String, dynamic> json) {
+    final lastFourDigits = json['last_four_digits'] as String? ?? '';
+    final cardNumber = '**** **** **** $lastFourDigits';
+
     return CardEntity(
-      id: json['id'] as int?,
-      cardType: CardType.fromString(json['cardType'] as String? ?? ''),
-      cardNumber: json['cardNumber'] as String? ?? '',
-      cardTypeProcessor: ProcessorType.fromString(
-        json['cardTypeProcessor'] as String? ?? '',
-      ),
-      cardHolder: json['cardHolder'] as String? ?? '',
+      id: json['id'] as String,
+      card: CardType.fromString(json['type'] as String? ?? ''),
+      number: cardNumber,
+      processor: ProcessorType.fromString(json['processor'] as String? ?? ''),
+      holder: json['card_holder'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      validity: json['validity'] as String? ?? '',
+      validity: json['expiration_date'] as String? ?? '',
       code: json['code'] as String? ?? '',
-      userId: json['userId'] as int?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'cardType': cardType.name,
-      'cardNumber': cardNumber,
-      'cardTypeProcessor': cardTypeProcessor.name,
-      'cardHolder': cardHolder,
+      'cardType': card.name,
+      'cardNumber': number,
+      'cardTypeProcessor': calculateProcessor.name.toUpperCase(),
+      'cardHolder': holder,
       'description': description,
       'validity': validity,
       'code': code,
-      if (userId != null) 'userId': userId,
     };
   }
 
-  String get last4Digits => cardNumber.length >= 4
-      ? cardNumber.substring(cardNumber.length - 4)
-      : cardNumber;
+  String get last4Digits =>
+      number.length >= 4 ? number.substring(number.length - 4) : number;
 
   String get formattedValidity {
     if (validity.contains('/') && validity.split('/')[1].length == 4) {
@@ -75,21 +71,19 @@ class CardEntity extends Equatable {
     return validity;
   }
 
-  bool get isPointsCard => displayProcessorType == ProcessorType.unknown;
-
-  ProcessorType get displayProcessorType {
-    if (cardTypeProcessor != ProcessorType.unknown) {
-      return cardTypeProcessor;
+  ProcessorType get calculateProcessor {
+    if (processor != ProcessorType.unknown) {
+      return processor;
     }
 
-    final cleanNumber = cardNumber.replaceAll(' ', '');
+    final cleanNumber = number.replaceAll(' ', '');
     if (cleanNumber.isEmpty) return ProcessorType.unknown;
 
-    if (cleanNumber.startsWith(RegExp(r'^4'))) {
+    if (cleanNumber.startsWith('4')) {
       return ProcessorType.visa;
-    } else if (cleanNumber.startsWith(RegExp(r'^(5[1-5]|2[2-7])'))) {
+    } else if (cleanNumber.startsWith('5')) {
       return ProcessorType.mastercard;
-    } else if (cleanNumber.startsWith(RegExp(r'^3[47]'))) {
+    } else if (cleanNumber.startsWith('3')) {
       return ProcessorType.amex;
     }
 
@@ -97,40 +91,37 @@ class CardEntity extends Equatable {
   }
 
   CardEntity copyWith({
-    int? id,
-    CardType? cardType,
-    String? cardNumber,
-    ProcessorType? cardTypeProcessor,
-    String? cardHolder,
+    String? id,
+    CardType? type,
+    String? number,
+    ProcessorType? processor,
+    String? holder,
     String? description,
     String? validity,
     String? code,
-    int? userId,
   }) {
     return CardEntity(
       id: id ?? this.id,
-      cardType: cardType ?? this.cardType,
-      cardNumber: cardNumber ?? this.cardNumber,
-      cardTypeProcessor: cardTypeProcessor ?? this.cardTypeProcessor,
-      cardHolder: cardHolder ?? this.cardHolder,
+      card: type ?? card,
+      number: number ?? this.number,
+      processor: processor ?? this.processor,
+      holder: holder ?? this.holder,
       description: description ?? this.description,
       validity: validity ?? this.validity,
       code: code ?? this.code,
-      userId: userId ?? this.userId,
     );
   }
 
   @override
   List<Object?> get props => [
     id,
-    cardType,
-    cardNumber,
-    cardTypeProcessor,
-    cardHolder,
+    card,
+    number,
+    processor,
+    holder,
     description,
     validity,
     code,
-    userId,
   ];
 }
 

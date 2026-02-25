@@ -1,3 +1,5 @@
+import 'package:montebit/core/domain/entities/card_entity.dart';
+
 class AddCardValidators {
   static String? validateDescription(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -12,7 +14,10 @@ class AddCardValidators {
     return null;
   }
 
-  static String? validateCardNumber(String? value) {
+  static String? validateCardNumber(
+    String? value,
+    ProcessorType processorType,
+  ) {
     if (value == null || value.trim().isEmpty) {
       return 'El número de tarjeta es requerido';
     }
@@ -22,6 +27,10 @@ class AddCardValidators {
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(cleanValue)) {
       return 'El número debe contener solo dígitos';
+    }
+
+    if (processorType == ProcessorType.unknown) {
+      return 'El número de tarjeta no es válido';
     }
 
     return null;
