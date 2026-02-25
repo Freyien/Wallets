@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:montebit/core/domain/enums/fetching_status.dart';
 import 'package:montebit/core/domain/enums/saving_status.dart';
+import 'package:montebit/core/domain/failures/failure.dart';
 import 'package:montebit/features/login/domain/entities/login_entity.dart';
 import 'package:montebit/features/login/domain/repositories/login_repository.dart';
 
@@ -40,6 +41,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return emit(state.copyWith(fetchingStatus: FetchingStatus.success));
     }
 
-    emit(state.copyWith(fetchingStatus: FetchingStatus.failure));
+    emit(
+      state.copyWith(
+        fetchingStatus: FetchingStatus.failure,
+        failure: result.failure,
+      ),
+    );
   }
 }

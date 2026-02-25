@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:montebit/core/domain/enums/fetching_status.dart';
 import 'package:montebit/features/cards/ui/cards_page.dart';
+import 'package:montebit/features/login/domain/failures/login_failures.dart';
 import 'package:montebit/features/login/ui/bloc/login_bloc.dart';
 
 class LoginListener extends StatelessWidget {
@@ -20,13 +21,14 @@ class LoginListener extends StatelessWidget {
         }
 
         if (state.fetchingStatus == FetchingStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Error al iniciar sesión. Verifica tus credenciales.',
-              ),
-            ),
-          );
+          final message = switch (state.failure) {
+            InvalidCredentialsFailure() => 'Credenciales incorrectas',
+            _ => 'Error al iniciar sesión',
+          };
+
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(message)));
 
           return;
         }

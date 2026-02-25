@@ -4,6 +4,8 @@ import 'package:montebit/core/domain/failures/failure.dart';
 import 'package:montebit/features/login/domain/datasources/login_datasource.dart';
 import 'package:montebit/features/login/domain/entities/login_entity.dart';
 import 'package:montebit/features/login/domain/entities/login_response_entity.dart';
+import 'package:montebit/features/login/domain/exceptions/login_exceptions.dart';
+import 'package:montebit/features/login/domain/failures/login_failures.dart';
 import 'package:montebit/features/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
@@ -20,7 +22,9 @@ class LoginRepositoryImpl implements LoginRepository {
       await _secureStorage.write(key: 'token', value: result.token);
 
       return Response.success(result);
-    } catch (e) {
+    } on InvalidCredentialsException catch (_) {
+      return Response.failed(InvalidCredentialsFailure());
+    } catch (_) {
       return Response.failed(UnexpectedFailure());
     }
   }
