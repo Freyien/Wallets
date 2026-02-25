@@ -4,6 +4,7 @@ import 'package:montebit/features/add_card/ui/add_card_page.dart';
 import 'package:montebit/features/cards/ui/cards_page.dart';
 import 'package:montebit/features/forgot_password/ui/forgot_password_page.dart';
 import 'package:montebit/features/login/ui/login_page.dart';
+import 'package:montebit/features/profile/ui/profile_page.dart';
 import 'package:montebit/features/signup/ui/signup_page.dart';
 import 'package:montebit/features/splash/models/initial_route_model.dart';
 
@@ -51,6 +52,12 @@ class AppRouter {
           path: ForgotPasswordPage.route,
           builder: (context, state) {
             return const ForgotPasswordPage();
+          },
+        ),
+        GoRoute(
+          path: ProfilePage.route,
+          builder: (context, state) {
+            return const ProfilePage();
           },
         ),
       ],

@@ -13,6 +13,7 @@ import 'package:montebit/features/login/ui/login_page.dart';
 import 'package:montebit/features/logout/ui/bloc/logout_bloc.dart';
 import 'package:montebit/features/logout/ui/bloc/logout_event.dart';
 import 'package:montebit/features/logout/ui/bloc/logout_state.dart';
+import 'package:montebit/features/profile/ui/profile_page.dart';
 
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
@@ -64,6 +65,7 @@ class CardsPage extends StatelessWidget {
                       style: TextStyle(letterSpacing: 0.1),
                     ),
                     onTap: () {
+                      context.pop();
                       context.push(AddCardPage.route);
                     },
                     shape: RoundedRectangleBorder(
@@ -73,7 +75,10 @@ class CardsPage extends StatelessWidget {
                   VerticalSpace.xxsmall(),
                   ListTile(
                     title: Text('Perfil', style: TextStyle(letterSpacing: 0.1)),
-                    onTap: () {},
+                    onTap: () {
+                      context.pop();
+                      context.push(ProfilePage.route);
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),

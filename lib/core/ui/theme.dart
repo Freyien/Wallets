@@ -10,6 +10,7 @@ class MontebitTheme {
       primaryColor: primaryColor,
       colorScheme: theme.colorScheme.copyWith(primary: primaryColor),
       appBarTheme: const AppBarTheme(backgroundColor: Color(0xffFBFAF2)),
+      scaffoldBackgroundColor: Colors.white,
       inputDecorationTheme: const InputDecorationTheme(
         fillColor: Color(0xffE4E3DB),
         filled: true,

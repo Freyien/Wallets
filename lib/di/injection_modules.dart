@@ -5,6 +5,7 @@ import 'package:montebit/features/add_card/di/add_card_di.dart';
 import 'package:montebit/features/cards/di/cards_di.dart';
 import 'package:montebit/features/login/di/login_di.dart';
 import 'package:montebit/features/logout/di/logout_di.dart';
+import 'package:montebit/features/profile/di/profile_di.dart';
 import 'package:montebit/features/signup/di/signup_di.dart';
 import 'package:montebit/features/splash/di/splash_di.dart';
 
@@ -23,4 +24,5 @@ Future<void> initDependencies() async {
   CardsDi.initDependencies();
   AddCardDi.initDependencies();
   LogoutDi.initDependencies();
+  ProfileDi.initDependencies();
 }

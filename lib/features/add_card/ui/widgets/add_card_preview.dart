@@ -11,7 +11,10 @@ class AddCardPreview extends StatelessWidget {
     return BlocBuilder<AddCardBloc, AddCardState>(
       buildWhen: (p, c) => p.addCard != c.addCard,
       builder: (context, state) {
-        return CardItem(card: state.addCard, showDeleteButton: false);
+        return CardItem(
+          card: state.addCard,
+          showDeleteButton: false,
+        );
       },
     );
   }
