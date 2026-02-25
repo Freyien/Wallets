@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:montebit/core/domain/enums/saving_status.dart';
+import 'package:montebit/core/domain/failures/failure.dart';
 import 'package:montebit/features/signup/domain/entities/signup_entity.dart';
 import 'package:montebit/features/signup/domain/repositories/signup_repository.dart';
 
@@ -62,6 +63,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       return emit(state.copyWith(savingStatus: SavingStatus.success));
     }
 
-    emit(state.copyWith(savingStatus: SavingStatus.failure));
+    emit(
+      state.copyWith(
+        savingStatus: SavingStatus.failure,
+        failure: result.failure,
+      ),
+    );
   }
 }
