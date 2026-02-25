@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:montebit/core/ui/theme.dart';
 import 'package:montebit/di/injection_modules.dart';
+import 'package:montebit/features/cards/ui/bloc/cards_bloc.dart';
 import 'package:montebit/features/splash/usescases/get_initial_route_usecase.dart';
 import 'package:montebit/router/router.dart';
 
@@ -23,10 +25,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: router,
-      theme: MontebitTheme.lightTheme,
+    return _Providers(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: router,
+        theme: MontebitTheme.lightTheme,
+      ),
+    );
+  }
+}
+
+class _Providers extends StatelessWidget {
+  const _Providers({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<CardsBloc>(),
+        ),
+      ],
+      child: child,
     );
   }
 }

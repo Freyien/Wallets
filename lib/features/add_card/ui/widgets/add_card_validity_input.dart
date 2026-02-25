@@ -17,6 +17,7 @@ class AddCardValidityInput extends StatelessWidget {
         LengthLimitingTextInputFormatter(5),
         DateInputFormatter(),
       ],
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         labelText: 'Fecha de expiración',
         hintText: 'MM/YY',

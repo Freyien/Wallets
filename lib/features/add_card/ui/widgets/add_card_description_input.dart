@@ -14,6 +14,8 @@ class AddCardDescriptionInput extends StatelessWidget {
         hintText: 'Ej. Tarjeta Personal',
         helperText: 'Mínimo 5 caracteres',
       ),
+      textCapitalization: TextCapitalization.words,
+      textInputAction: TextInputAction.next,
       maxLength: 20,
       onChanged: (value) =>
           context.read<AddCardBloc>().add(ChangeDescriptionEvent(value)),

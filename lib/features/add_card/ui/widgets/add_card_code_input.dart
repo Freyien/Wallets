@@ -17,6 +17,7 @@ class AddCardCodeInput extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(4),
       ],
+      textInputAction: TextInputAction.done,
       onChanged: (value) =>
           context.read<AddCardBloc>().add(ChangeCodeEvent(value)),
       validator: (value) => AddCardValidators.validateCode(value),

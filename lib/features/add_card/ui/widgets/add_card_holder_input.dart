@@ -12,9 +12,11 @@ class AddCardHolderInput extends StatelessWidget {
     return TextFormField(
       decoration: const InputDecoration(
         labelText: 'Nombre del titular',
-        hintText: 'Ej. John Doe',
+        hintText: 'Ej. Juan Pérez',
       ),
       inputFormatters: [LengthLimitingTextInputFormatter(20)],
+      textCapitalization: TextCapitalization.words,
+      textInputAction: TextInputAction.next,
       onChanged: (value) =>
           context.read<AddCardBloc>().add(ChangeCardHolderEvent(value)),
       validator: (value) => AddCardValidators.validateCardHolder(value),

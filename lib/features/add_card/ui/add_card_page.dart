@@ -26,62 +26,64 @@ class AddCardPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => sl<AddCardBloc>(),
-      child: AddCardSavingListener(
-        child: Scaffold(
-          appBar: AppBar(title: const Text('Agregar Tarjeta')),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: formKey,
-                child: FadeInUp(
-                  from: 10,
-                  delay: Duration(milliseconds: 300),
-                  child: Column(
-                    children: [
-                      // Preview
-                      AddCardPreview(),
-                      VerticalSpace.xxxlarge(),
+      child: HideKeyboard(
+        child: AddCardSavingListener(
+          child: Scaffold(
+            appBar: AppBar(title: const Text('Agregar Tarjeta')),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: formKey,
+                  child: FadeInUp(
+                    from: 10,
+                    delay: Duration(milliseconds: 300),
+                    child: Column(
+                      children: [
+                        // Preview
+                        AddCardPreview(),
+                        VerticalSpace.xxxlarge(),
 
-                      // Description
-                      AddCardDescriptionInput(),
-                      VerticalSpace.large(),
+                        // Description
+                        AddCardDescriptionInput(),
+                        VerticalSpace.large(),
 
-                      // Number
-                      AddCardNumberInput(),
-                      VerticalSpace.large(),
+                        // Number
+                        AddCardNumberInput(),
+                        VerticalSpace.large(),
 
-                      // Card Type
-                      const CardTypeSelector(),
-                      VerticalSpace.large(),
+                        // Card Type
+                        const CardTypeSelector(),
+                        VerticalSpace.large(),
 
-                      // Holder
-                      AddCardHolderInput(),
-                      VerticalSpace.large(),
+                        // Holder
+                        AddCardHolderInput(),
+                        VerticalSpace.large(),
 
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(flex: 4, child: AddCardValidityInput()),
-                          SizedBox(width: 16),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(flex: 4, child: AddCardValidityInput()),
+                            SizedBox(width: 16),
 
-                          Expanded(flex: 2, child: AddCardCodeInput()),
-                        ],
-                      ),
+                            Expanded(flex: 2, child: AddCardCodeInput()),
+                          ],
+                        ),
 
-                      VerticalSpace.xxxlarge(),
+                        VerticalSpace.xxxlarge(),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // Cancel button
-                          AddCardCancelButton(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Cancel button
+                            AddCardCancelButton(),
 
-                          // Submit button
-                          AddCardSubmitButton(formKey: formKey),
-                        ],
-                      ),
-                    ],
+                            // Submit button
+                            AddCardSubmitButton(formKey: formKey),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

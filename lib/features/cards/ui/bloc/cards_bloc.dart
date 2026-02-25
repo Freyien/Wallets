@@ -21,7 +21,11 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     GetCardsEvent event,
     Emitter<CardsState> emit,
   ) async {
-    emit(state.copyWith(fetchingStatus: FetchingStatus.loading));
+    emit(
+      CardsState.initial().copyWith(
+        fetchingStatus: FetchingStatus.loading,
+      ),
+    );
 
     final result = await _repository.getCards();
 

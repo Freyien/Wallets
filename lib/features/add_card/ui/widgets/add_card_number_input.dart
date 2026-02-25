@@ -16,6 +16,7 @@ class AddCardNumberInput extends StatelessWidget {
         hintText: '**** **** **** ****',
         prefixIcon: Icon(Icons.credit_card),
       ),
+      textInputAction: TextInputAction.next,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(16),
