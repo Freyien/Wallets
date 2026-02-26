@@ -1,66 +1,42 @@
 part of 'add_card_bloc.dart';
 
-sealed class AddCardEvent extends Equatable {
-  const AddCardEvent();
-
-  @override
-  List<Object> get props => [];
+sealed class AddCardEvent {
+  AddCardEvent();
 }
 
 class ChangeDescriptionEvent extends AddCardEvent {
-  const ChangeDescriptionEvent(this.description);
+  ChangeDescriptionEvent(this.description);
   final String description;
-
-  @override
-  List<Object> get props => [description];
 }
 
 class ChangeCardNumberEvent extends AddCardEvent {
-  const ChangeCardNumberEvent(this.cardNumber);
+  ChangeCardNumberEvent(this.cardNumber);
   final String cardNumber;
-
-  @override
-  List<Object> get props => [cardNumber];
 }
 
 class ChangeCardHolderEvent extends AddCardEvent {
-  const ChangeCardHolderEvent(this.cardHolder);
+  ChangeCardHolderEvent(this.cardHolder);
   final String cardHolder;
-
-  @override
-  List<Object> get props => [cardHolder];
 }
 
 class ChangeValidityEvent extends AddCardEvent {
-  const ChangeValidityEvent(this.validity);
+  ChangeValidityEvent(this.validity);
   final String validity;
-
-  @override
-  List<Object> get props => [validity];
 }
 
 class ChangeCodeEvent extends AddCardEvent {
-  const ChangeCodeEvent(this.code);
+  ChangeCodeEvent(this.code);
   final String code;
-
-  @override
-  List<Object> get props => [code];
 }
 
 class ChangeCardTypeEvent extends AddCardEvent {
-  const ChangeCardTypeEvent(this.cardType);
+  ChangeCardTypeEvent(this.cardType);
   final CardType cardType;
-
-  @override
-  List<Object> get props => [cardType];
 }
 
 class ChangeCardTypeProcessorEvent extends AddCardEvent {
-  const ChangeCardTypeProcessorEvent(this.cardTypeProcessor);
+  ChangeCardTypeProcessorEvent(this.cardTypeProcessor);
   final String cardTypeProcessor;
-
-  @override
-  List<Object> get props => [cardTypeProcessor];
 }
 
 class SaveCardEvent extends AddCardEvent {}

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:montebit/features/signup/domain/datasources/signup_datasource.dart';
 import 'package:montebit/features/signup/domain/entities/signup_entity.dart';
 import 'package:montebit/features/signup/domain/entities/signup_response_entity.dart';
-import 'package:montebit/features/signup/domain/failures/signup_failures.dart';
+import 'package:montebit/features/signup/domain/exceptions/signup_exceptions.dart';
 
 class SignupDatasourceImpl implements SignupDatasource {
   final Dio _client;
@@ -20,7 +20,7 @@ class SignupDatasourceImpl implements SignupDatasource {
       return SignUpResponseEntity.fromJson(responseData);
     } on DioException catch (e) {
       if (e.response?.statusCode == 412) {
-        throw EmailOrPhoneAlreadyInUseFailure();
+        throw EmailOrPhoneAlreadyInUseException();
       }
 
       rethrow;

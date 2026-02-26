@@ -1,18 +1,12 @@
 part of 'cards_bloc.dart';
 
-sealed class CardsEvent extends Equatable {
-  const CardsEvent();
-
-  @override
-  List<Object> get props => [];
+sealed class CardsEvent {
+  CardsEvent();
 }
 
 class GetCardsEvent extends CardsEvent {}
 
 class DeleteCardEvent extends CardsEvent {
-  const DeleteCardEvent(this.id);
+  DeleteCardEvent(this.id);
   final String id;
-
-  @override
-  List<Object> get props => [id];
 }
