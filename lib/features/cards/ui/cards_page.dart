@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:montebit/core/ui/widgets/avatar_image.dart';
 import 'package:montebit/features/cards/ui/bloc/cards_bloc.dart';
 import 'package:montebit/features/cards/ui/widgets/cards_add_card_button.dart';
 import 'package:montebit/features/cards/ui/widgets/cards_deleting_listener.dart';
@@ -33,7 +34,7 @@ class _CardsPageState extends State<CardsPage> {
         title: Text('Mis tarjetas'),
         actions: [
           IconButton(
-            icon: CircleAvatar(radius: 18),
+            icon: AvatarImage(radius: 18),
             onPressed: () {
               context.push(ProfilePage.route);
             },

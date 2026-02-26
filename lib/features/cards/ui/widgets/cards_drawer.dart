@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:montebit/core/ui/widgets/avatar_image.dart';
 import 'package:montebit/core/ui/widgets/vertical_space.dart';
 import 'package:montebit/di/injection_modules.dart';
 import 'package:montebit/features/add_card/ui/add_card_page.dart';
@@ -31,7 +32,7 @@ class CardsDrawer extends StatelessWidget {
                       context.pop();
                       context.push(ProfilePage.route);
                     },
-                    child: CircleAvatar(radius: 25),
+                    child: AvatarImage(radius: 25),
                   ),
                 ),
                 Divider(height: 24),
