@@ -185,9 +185,12 @@ class _ProcessorLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     final logoPath = processorType.logoPath;
 
-    return logoPath.isNotEmpty
-        ? SvgPicture.asset(logoPath)
-        : const SizedBox.shrink();
+    return SizedBox(
+      height: 35,
+      child: logoPath.isNotEmpty
+          ? SvgPicture.asset(logoPath)
+          : const SizedBox.shrink(),
+    );
   }
 }
 
